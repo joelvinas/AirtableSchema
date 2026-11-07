@@ -1,0 +1,178 @@
+:root {
+    --bg-color: #f4f6f8;
+    --card-bg: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --accent-color: #2563eb;
+    --border-color: #e5e7eb;
+    --badge-bg: #eff6ff;
+    --badge-text: #1d4ed8;
+    --collapsible-bg: #f9fafb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+header h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.error-banner {
+    background-color: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.tables-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.table-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.table-header {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+
+.table-title h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.table-id {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+}
+
+.table-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.stat-badge {
+    background-color: var(--badge-bg);
+    color: var(--badge-text);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: 1rem;
+}
+
+.collapsible-trigger {
+    width: 100%;
+    background-color: var(--collapsible-bg);
+    border: none;
+    border-top: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible-trigger:hover {
+    background-color: #f3f4f6;
+}
+
+.arrow-icon {
+    transition: transform 0.2s ease;
+}
+
+.collapsible-trigger.active .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: var(--card-bg);
+}
+
+.fields-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.fields-table th,
+.fields-table td {
+    padding: 0.75rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.fields-table th {
+    background-color: var(--collapsible-bg);
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.type-tag {
+    display: inline-block;
+    font-family: monospace;
+    font-size: 0.8rem;
+    background-color: #e0e7ff;
+    color: #3730a3;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+}

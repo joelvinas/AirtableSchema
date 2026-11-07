@@ -1,0 +1,218 @@
+{
+  "tables": [
+    {
+      "id": "tblLocations0001",
+      "name": "Retail Locations",
+      "primaryFieldId": "fldLocId000000001",
+      "fields": [
+        { "id": "fldLocId000000001", "name": "id", "type": "singleLineText" },
+        { "id": "fldLocCity00000001", "name": "City", "type": "singleLineText" },
+        { "id": "fldLocCross0000000", "name": "Cross Street", "type": "singleLineText" },
+        {
+          "id": "fldLocFormat000000",
+          "name": "Freestanding/Mall",
+          "type": "singleSelect",
+          "options": {
+            "choices": [
+              { "id": "selFreestanding", "name": "Freestanding", "color": "blueLight1" },
+              { "id": "selMall", "name": "Mall", "color": "greenLight1" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tblSalesReps0001",
+      "name": "Sales Persons",
+      "primaryFieldId": "fldRepId000000001",
+      "fields": [
+        { "id": "fldRepId000000001", "name": "id", "type": "singleLineText" },
+        { "id": "fldRepName00000001", "name": "Name", "type": "singleLineText" },
+        { "id": "fldRepEmail0000001", "name": "Email", "type": "email" },
+        {
+          "id": "fldRepHome0000001",
+          "name": "Homebase Location",
+          "type": "multipleRecordLinks",
+          "options": {
+            "linkedTableId": "tblLocations0001",
+            "isReversed": false
+          }
+        },
+        {
+          "id": "fldRepComm0000001",
+          "name": "Commission Rate",
+          "type": "percent",
+          "options": { "precision": 3 }
+        }
+      ]
+    },
+    {
+      "id": "tblItems00000001",
+      "name": "Items",
+      "primaryFieldId": "fldItemId000000001",
+      "fields": [
+        { "id": "fldItemId000000001", "name": "id", "type": "singleLineText" },
+        { "id": "fldItemName0000001", "name": "Name", "type": "singleLineText" },
+        {
+          "id": "fldItemTags0000001",
+          "name": "Style Interest Tags",
+          "type": "multipleSelects",
+          "options": {
+            "choices": [
+              { "id": "selBespoke", "name": "Bespoke Tailoring" },
+              { "id": "selBlackTie", "name": "Black Tie" },
+              { "id": "selItalian", "name": "Italian Cut" },
+              { "id": "selSmartCasual", "name": "Smart Casual" },
+              { "id": "selOuterwear", "name": "Luxury Outerwear" },
+              { "id": "selClassicBiz", "name": "Classic Business" },
+              { "id": "selModernFit", "name": "Modern Fit" },
+              { "id": "selHeritageWool", "name": "Heritage Wool" },
+              { "id": "selSilkFormal", "name": "Silk Formalwear" },
+              { "id": "selCasualLux", "name": "Casual Luxury" }
+            ]
+          }
+        },
+        {
+          "id": "fldItemCost0000001",
+          "name": "Cost",
+          "type": "currency",
+          "options": { "precision": 2, "symbol": "$" }
+        },
+        {
+          "id": "fldItemPrice000001",
+          "name": "Price",
+          "type": "currency",
+          "options": { "precision": 2, "symbol": "$" }
+        },
+        {
+          "id": "fldItemMargin000001",
+          "name": "Margin",
+          "type": "formula",
+          "options": { "formula": "({Price} - {Cost}) / {Price}" }
+        }
+      ]
+    },
+    {
+      "id": "tblClients0000001",
+      "name": "Clients",
+      "primaryFieldId": "fldCliId000000001",
+      "fields": [
+        { "id": "fldCliId000000001", "name": "id", "type": "singleLineText" },
+        { "id": "fldCliName00000001", "name": "Name", "type": "singleLineText" },
+        {
+          "id": "fldCliHome00000001",
+          "name": "Home Store",
+          "type": "multipleRecordLinks",
+          "options": {
+            "linkedTableId": "tblLocations0001",
+            "isReversed": false
+          }
+        },
+        {
+          "id": "fldCliStyles000001",
+          "name": "Style Interests",
+          "type": "multipleSelects",
+          "options": {
+            "choices": [
+              { "id": "selBespoke", "name": "Bespoke Tailoring" },
+              { "id": "selBlackTie", "name": "Black Tie" },
+              { "id": "selItalian", "name": "Italian Cut" },
+              { "id": "selSmartCasual", "name": "Smart Casual" },
+              { "id": "selOuterwear", "name": "Luxury Outerwear" },
+              { "id": "selClassicBiz", "name": "Classic Business" },
+              { "id": "selModernFit", "name": "Modern Fit" },
+              { "id": "selHeritageWool", "name": "Heritage Wool" },
+              { "id": "selSilkFormal", "name": "Silk Formalwear" },
+              { "id": "selCasualLux", "name": "Casual Luxury" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tblPurchases00001",
+      "name": "Purchase",
+      "primaryFieldId": "fldPurId000000001",
+      "fields": [
+        { "id": "fldPurId000000001", "name": "id", "type": "singleLineText" },
+        {
+          "id": "fldPurClient000001",
+          "name": "clientId",
+          "type": "multipleRecordLinks",
+          "options": {
+            "linkedTableId": "tblClients0000001",
+            "isReversed": false
+          }
+        },
+        {
+          "id": "fldPurSalesRep0001",
+          "name": "salesPersonId",
+          "type": "multipleRecordLinks",
+          "options": {
+            "linkedTableId": "tblSalesReps0001",
+            "isReversed": false
+          }
+        },
+        {
+          "id": "fldPurTotal0000001",
+          "name": "Total",
+          "type": "rollup",
+          "options": {
+            "recordLinkFieldId": "fldPurLineItems001",
+            "fieldIdInLinkedTable": "fldSItemPrice0001",
+            "formula": "SUM(values)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tblSalesItems0001",
+      "name": "SalesItems",
+      "primaryFieldId": "fldSItemId00000001",
+      "fields": [
+        {
+          "id": "fldSItemPurId00001",
+          "name": "purchaseId",
+          "type": "multipleRecordLinks",
+          "options": {
+            "linkedTableId": "tblPurchases00001",
+            "isReversed": false
+          }
+        },
+        {
+          "id": "fldSItemItemId00001",
+          "name": "itemId",
+          "type": "multipleRecordLinks",
+          "options": {
+            "linkedTableId": "tblItems00000001",
+            "isReversed": false
+          }
+        },
+        {
+          "id": "fldSItemPrice0001",
+          "name": "Price",
+          "type": "currency",
+          "options": { "precision": 2, "symbol": "$" }
+        },
+        {
+          "id": "fldSItemCost00001",
+          "name": "Cost",
+          "type": "currency",
+          "options": { "precision": 2, "symbol": "$" }
+        },
+        {
+          "id": "fldSItemDisc00001",
+          "name": "Discount",
+          "type": "percent",
+          "options": { "precision": 2 }
+        },
+        {
+          "id": "fldSItemComm00001",
+          "name": "Commission",
+          "type": "currency",
+          "options": { "precision": 2, "symbol": "$" }
+        }
+      ]
+    }
+  ]
+}
