@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchSchema();
+    setupCopyButton();
 });
 
 async function fetchSchema() {
     const errorContainer = document.getElementById('error-message');
-    const tablesContainer = document.getElementById('tables-container');
 
     try {
         const response = await fetch('./schema.json');
@@ -17,11 +17,31 @@ async function fetchSchema() {
             throw new Error("Invalid schema format: Expected top-level 'tables' array.");
         }
 
+        renderSummaryGrid(schemaData.tables);
         renderTables(schemaData.tables);
     } catch (error) {
         errorContainer.textContent = `Error loading schema.json: ${error.message}. Note: Local fetch requires running via a local web server (e.g., Live Server, http-server, or python -m http.server).`;
         errorContainer.classList.remove('hidden');
     }
+}
+
+function renderSummaryGrid(tables) {
+    const gridBody = document.getElementById('summary-grid-body');
+    gridBody.innerHTML = '';
+
+    tables.forEach((table) => {
+        const fieldCount = table.fields ? table.fields.length : 0;
+        const recordCount = table.recordsCount !== undefined ? table.recordsCount : (table.records ? table.records.length : 0);
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${escapeHtml(table.name || 'Unnamed Table')}</td>
+            <td>${escapeHtml(table.id || 'N/A')}</td>
+            <td>${fieldCount}</td>
+            <td>${recordCount}</td>
+        `;
+        gridBody.appendChild(row);
+    });
 }
 
 function renderTables(tables) {
@@ -30,7 +50,6 @@ function renderTables(tables) {
 
     tables.forEach((table) => {
         const fieldCount = table.fields ? table.fields.length : 0;
-        // Record count reads from schema if present, defaults to 0
         const recordCount = table.recordsCount !== undefined ? table.recordsCount : (table.records ? table.records.length : 0);
 
         const card = document.createElement('div');
@@ -102,6 +121,38 @@ function setupCollapsibles() {
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
             }
+        });
+    });
+}
+
+function setupCopyButton() {
+    const copyBtn = document.getElementById('copy-btn');
+    copyBtn.addEventListener('click', () => {
+        const table = document.getElementById('summary-excel-table');
+        let tsvContent = '';
+
+        // Extract headers
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        tsvContent += headers.join('\t') + '\n';
+
+        // Extract rows
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const cells = Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
+            tsvContent += cells.join('\t') + '\n';
+        });
+
+        // Copy TSV string to clipboard
+        navigator.clipboard.writeText(tsvContent).then(() => {
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            copyBtn.style.backgroundColor = '#059669';
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.style.backgroundColor = '';
+            }, 2000);
+        }).catch(err => {
+            alert('Failed to copy to clipboard: ' + err);
         });
     });
 }

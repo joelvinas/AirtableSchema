@@ -14,6 +14,31 @@
         </header>
 
         <div id="error-message" class="error-banner hidden"></div>
+        
+        <!-- Excel Exportable Summary Grid -->
+        <section class="summary-section">
+            <div class="summary-header">
+                <h2>Base Summary Grid</h2>
+                <button id="copy-btn" class="copy-btn">Copy for Excel</button>
+            </div>
+            <div class="summary-table-wrapper">
+                <table id="summary-excel-table" class="excel-grid">
+                    <thead>
+                        <tr>
+                            <th>Table Name</th>
+                            <th>Table ID</th>
+                            <th>Columns</th>
+                            <th>Rows</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summary-grid-body">
+                        <!-- Populated dynamically from schema.json -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Detailed Schema Tables -->
         <div id="tables-container" class="tables-grid"></div>
     </div>
 
